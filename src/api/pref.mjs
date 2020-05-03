@@ -1,4 +1,5 @@
-
+// node  --experimental-modules src/api/pref.mjs
+// これで実行すること．
 import axios from 'axios'
 
 class PrefApi {
