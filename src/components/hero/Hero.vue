@@ -2,8 +2,8 @@
   <section class="hero is-medium is-primary is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">EC-SITE-MockUP</h1>
-        <h2 class="subtitle">Made with Vue.js!!!</h2>
+        <h1 class="title">AnyCompany </h1>
+        <h2 class="subtitle">Have fun with our website!</h2>
       </div>
     </div>
   </section>

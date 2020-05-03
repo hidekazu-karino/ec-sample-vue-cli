@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>ECMOCK since2019/11 @yujiteshima</strong>
+        <strong>AnyCompany since2020/04</strong>
       </p>
     </div>
   </footer>
