@@ -1,118 +1,48 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    items: [],
     products: [{
-        id: 1,
-        title: 'Product 1',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 50,
-        ratings: 3,
-        reviews: 5,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 2,
-        title: 'Product 2',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 35,
-        ratings: 5,
-        reviews: 0,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 3,
-        title: 'Product 3',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 110,
-        ratings: 2,
-        reviews: 3,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 4,
-        title: 'Product 4',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 50,
-        ratings: 1,
-        reviews: 0,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 5,
-        title: 'Product 5',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 35,
-        ratings: 4,
-        reviews: 2,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 6,
-        title: 'Product 6',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 110,
-        ratings: 5,
-        reviews: 1,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 7,
-        title: 'Product 7',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 50,
-        ratings: 5,
-        reviews: 7,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 8,
-        title: 'Product 8',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 35,
-        ratings: 3,
-        reviews: 0,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      },
-      {
-        id: 9,
-        title: 'Product 9',
-        description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
-        price: 110,
-        ratings: 4,
-        reviews: 2,
-        isAddedToCart: false,
-        isAddedBtn: false,
-        isFavourite: false,
-        quantity: 1
-      }
+      id: 1,
+      title: 'Product 1',
+      description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
+      price: 50,
+      ratings: 3,
+      reviews: 5,
+      isAddedToCart: false,
+      isAddedBtn: false,
+      isFavourite: false,
+      quantity: 1
+    },
+    {
+      id: 2,
+      title: 'Product 2',
+      description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
+      price: 35,
+      ratings: 5,
+      reviews: 0,
+      isAddedToCart: false,
+      isAddedBtn: false,
+      isFavourite: false,
+      quantity: 1
+    },
+    {
+      id: 3,
+      title: 'Product 3',
+      description: 'サンプルです。モックです。商品の紹介文をいれます！！！',
+      price: 110,
+      ratings: 2,
+      reviews: 3,
+      isAddedToCart: false,
+      isAddedBtn: false,
+      isFavourite: false,
+      quantity: 1
+    }
     ],
     userInfo: {
       isLoggedIn: false,
@@ -161,9 +91,13 @@ export default new Vuex.Store({
     },
     quantity: (state) => {
       return state.products.quantity
-    }
+    },
+    getStateDataSet: (state) => state.items
   },
   mutations: {
+    mutateDataSet(state, payload) {
+      state.items = payload;
+    },
     addToCart: (state, id) => {
       state.products.forEach((el) => {
         if (id === el.id) {
@@ -239,6 +173,21 @@ export default new Vuex.Store({
       state.authUser = authUser
     }
   },
-  actions: {},
+  actions: {
+    commitDataSet(store) {
+      const headers_config = {
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+      return axios.get('http://13.231.104.134/items', headers_config)
+        .then(response => {
+          store.commit('mutateDataSet', response.data)
+        })
+        .catch((reason) => {
+          console.log(reason.message)
+        })
+    }
+  },
   modules: {}
 })

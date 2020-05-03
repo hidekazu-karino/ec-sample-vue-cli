@@ -105,14 +105,20 @@
       }"
       class="details"
     ></router-link>
+    <div>
+  <pre>{{ dataOutput }}</pre>
+ </div>
   </div>
+   
 </template>
 
 <script>
 export default {
   name: "Products",
   props: ["product"],
-
+  created() {
+    this.$store.dispatch('commitDataSet')
+  },
   data() {
     return {
       addToCartLabel: "カートに入れる",
@@ -128,6 +134,9 @@ export default {
   computed: {
     isUserLogged() {
       return this.$store.getters.isUserLoggedIn;
+    },
+    dataOutput() {
+      return this.$store.getters.getStateDataSet
     }
   },
 
